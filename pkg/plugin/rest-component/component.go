@@ -58,17 +58,22 @@ func (m *component) GetDataMap() map[string][]byte {
 	c := plugin.OwnerAsCapability(m)
 	paramsMap := plugin.ParametersAsMap(c.Spec.Parameters)
 	/*
-	parameters:
-		            - name: context
-		              value: /api/fruits
-		            - name: port
-		              value: "8080"
-	name: "ENDPOINT_BACKEND"
-		      value: "http://fruit-backend-sb:8080/api/fruits"
-	 */
-	return map[string][]byte{
-		"ENDPOINT_BACKEND":     []byte(fmt.Sprintf("http://%s:%s%s", paramsMap["component"], paramsMap["port"], paramsMap["context"])),
+		parameters:
+			            - name: context
+			              value: /api/fruits
+			            - name: port
+			              value: "8080"
+		name: "ENDPOINT_BACKEND"
+			      value: "http://fruit-backend-sb:8080/api/fruits"
+	*/
+	key := "ENDPOINT_BACKEND"
+	if override, ok := paramsMap["endpointKey"]; ok {
+		key = override
 	}
+	result := map[string][]byte{
+		key: []byte(fmt.Sprintf("http://%s:%s%s", paramsMap["component"], paramsMap["port"], paramsMap["context"])),
+	}
+	return result
 }
 
 func (m *component) GetSecretName() string {

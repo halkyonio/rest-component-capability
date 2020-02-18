@@ -10,8 +10,8 @@ require (
 	github.com/imdario/mergo v0.3.8 // indirect
 	github.com/prometheus/client_golang v1.4.1 // indirect
 	go.uber.org/zap v1.13.0 // indirect
-	halkyon.io/api v1.0.0-rc.4.0.20200212202030-807049267e38
-	halkyon.io/operator-framework v1.0.0-beta.4.0.20200214095045-1ef43dc9dce0
+	halkyon.io/api v1.0.0-rc.4.0.20200217221003-af8973318c2d
+	halkyon.io/operator-framework v1.0.0-beta.4.0.20200217221133-2d1fdc28e06c
 	k8s.io/api v0.17.3
 	k8s.io/apiextensions-apiserver v0.17.3 // indirect
 	k8s.io/apimachinery v0.17.3
@@ -20,6 +20,7 @@ require (
 
 replace (
 	github.com/appscode/jsonpatch => github.com/appscode/jsonpatch v0.0.0-20190108182946-7c0e3b262f30 // indirect
+	halkyon.io/operator-framework => ../operator-framework
 	k8s.io/api => k8s.io/api v0.0.0-20181213150558-05914d821849
 	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20181127025237-2b1284ed4c93
 	k8s.io/client-go => k8s.io/client-go v0.0.0-20181213151034-8d9ed539ba31

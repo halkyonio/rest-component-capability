@@ -19,7 +19,8 @@ type component struct {
 func NewComponent(owner v1beta1.HalkyonResource) *component {
 	config := framework.NewConfig(gvk)
 	config.CheckedForReadiness = true
-	config.CreatedOrUpdated = false
+	config.Created = false
+	config.Updated = true
 	p := &component{framework.NewConfiguredBaseDependentResource(owner, config)}
 	return p
 }
@@ -46,8 +47,8 @@ func (m *component) Build(empty bool) (runtime.Object, error) {
 	return c, nil
 }
 
-func (m *component) Update(_ runtime.Object) (bool, error) {
-	return false, nil
+func (m *component) Update(toUpdate runtime.Object) (bool, runtime.Object, error) {
+	return false, toUpdate, nil
 }
 
 func (m *component) GetCondition(underlying runtime.Object, err error) *v1beta1.DependentCondition {
@@ -57,15 +58,6 @@ func (m *component) GetCondition(underlying runtime.Object, err error) *v1beta1.
 func (m *component) GetDataMap() map[string][]byte {
 	c := plugin.OwnerAsCapability(m)
 	paramsMap := plugin.ParametersAsMap(c.Spec.Parameters)
-	/*
-		parameters:
-			            - name: context
-			              value: /api/fruits
-			            - name: port
-			              value: "8080"
-		name: "ENDPOINT_BACKEND"
-			      value: "http://fruit-backend-sb:8080/api/fruits"
-	*/
 	key := "ENDPOINT_BACKEND"
 	if override, ok := paramsMap["halkyon.endpointKey"]; ok {
 		key = override

@@ -6,6 +6,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"reflect"
 )
 
 var secretGVK = v1.SchemeGroupVersion.WithKind("Secret")
@@ -34,13 +35,22 @@ func (res secret) GetCondition(underlying runtime.Object, err error) *v1beta1.De
 	return framework.DefaultGetConditionFor(res, err)
 }
 
-func (res secret) Update(_ runtime.Object) (bool, error) {
-	return false, nil
+func (res secret) Update(toUpdate runtime.Object) (bool, runtime.Object, error) {
+	secret := toUpdate.(*v1.Secret)
+	dataMap := res.Delegate.GetDataMap()
+	if !reflect.DeepEqual(dataMap, secret.Data) {
+		secret.Data = dataMap
+		return true, secret, nil
+	}
+
+	return false, secret, nil
 }
 
 func NewSecret(owner NeedsSecret) secret {
 	config := framework.NewConfig(secretGVK)
-	config.Watched = false
+	config.CheckedForReadiness = true
+	config.Watched = true
+	config.Updated = true
 	return secret{BaseDependentResource: framework.NewConfiguredBaseDependentResource(owner.Owner(), config), Delegate: owner}
 }
 

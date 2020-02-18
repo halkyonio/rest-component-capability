@@ -67,7 +67,7 @@ func (m *component) GetDataMap() map[string][]byte {
 			      value: "http://fruit-backend-sb:8080/api/fruits"
 	*/
 	key := "ENDPOINT_BACKEND"
-	if override, ok := paramsMap["endpointKey"]; ok {
+	if override, ok := paramsMap["halkyon.endpointKey"]; ok {
 		key = override
 	}
 	result := map[string][]byte{

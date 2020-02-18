@@ -20,7 +20,6 @@ require (
 
 replace (
 	github.com/appscode/jsonpatch => github.com/appscode/jsonpatch v0.0.0-20190108182946-7c0e3b262f30 // indirect
-	halkyon.io/operator-framework => ../operator-framework
 	k8s.io/api => k8s.io/api v0.0.0-20181213150558-05914d821849
 	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20181127025237-2b1284ed4c93
 	k8s.io/client-go => k8s.io/client-go v0.0.0-20181213151034-8d9ed539ba31

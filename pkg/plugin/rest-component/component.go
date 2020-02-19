@@ -2,10 +2,11 @@ package rest_component
 
 import (
 	"fmt"
+	capability "halkyon.io/api/capability/v1beta1"
 	v1beta12 "halkyon.io/api/component/v1beta1"
 	"halkyon.io/api/v1beta1"
 	framework "halkyon.io/operator-framework"
-	"halkyon.io/rest-component-capability/pkg/plugin"
+	"halkyon.io/operator-framework/util"
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -25,9 +26,13 @@ func NewComponent(owner v1beta1.HalkyonResource) *component {
 	return p
 }
 
+func ownerAsCapability(res framework.DependentResource) *capability.Capability {
+	return res.Owner().(*capability.Capability)
+}
+
 func (m *component) Name() string {
-	c := plugin.OwnerAsCapability(m)
-	paramsMap := plugin.ParametersAsMap(c.Spec.Parameters)
+	c := ownerAsCapability(m)
+	paramsMap := util.ParametersAsMap(c.Spec.Parameters)
 	return paramsMap["component"]
 }
 
@@ -56,8 +61,8 @@ func (m *component) GetCondition(underlying runtime.Object, err error) *v1beta1.
 }
 
 func (m *component) GetDataMap() map[string][]byte {
-	c := plugin.OwnerAsCapability(m)
-	paramsMap := plugin.ParametersAsMap(c.Spec.Parameters)
+	c := ownerAsCapability(m)
+	paramsMap := util.ParametersAsMap(c.Spec.Parameters)
 	key := "ENDPOINT_BACKEND"
 	if override, ok := paramsMap["halkyon.endpointKey"]; ok {
 		key = override
@@ -69,5 +74,5 @@ func (m *component) GetDataMap() map[string][]byte {
 }
 
 func (m *component) GetSecretName() string {
-	return plugin.DefaultSecretNameFor(m)
+	return framework.DefaultSecretNameFor(m)
 }

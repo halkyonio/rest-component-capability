@@ -4,7 +4,6 @@ import (
 	beta1 "halkyon.io/api/v1beta1"
 	"halkyon.io/operator-framework"
 	"halkyon.io/operator-framework/plugins/capability"
-	"halkyon.io/rest-component-capability/pkg/plugin"
 )
 
 var _ capability.PluginResource = &Resource{}
@@ -15,7 +14,9 @@ type Resource struct {
 
 func (m Resource) GetDependentResourcesWith(owner beta1.HalkyonResource) []framework.DependentResource {
 	c := NewComponent(owner)
-	return []framework.DependentResource{plugin.NewSecret(c), c}
+	config := framework.NewDefaultSecretConfig()
+	config.CheckedForReadiness = true
+	return []framework.DependentResource{framework.NewSecret(c, config), c}
 }
 
 func NewPluginResource() capability.PluginResource {

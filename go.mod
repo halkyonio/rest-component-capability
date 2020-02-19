@@ -11,8 +11,7 @@ require (
 	github.com/prometheus/client_golang v1.4.1 // indirect
 	go.uber.org/zap v1.13.0 // indirect
 	halkyon.io/api v1.0.0-rc.4.0.20200217221003-af8973318c2d
-	halkyon.io/operator-framework v1.0.0-beta.4.0.20200217221133-2d1fdc28e06c
-	k8s.io/api v0.17.3
+	halkyon.io/operator-framework v1.0.0-beta.4.0.20200219153202-7e58159b95d1
 	k8s.io/apiextensions-apiserver v0.17.3 // indirect
 	k8s.io/apimachinery v0.17.3
 	sigs.k8s.io/testing_frameworks v0.1.2 // indirect

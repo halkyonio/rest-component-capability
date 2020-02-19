@@ -19,7 +19,7 @@ type component struct {
 	*framework.BaseDependentResource
 }
 
-func NewComponent(owner v1beta1.HalkyonResource) *component {
+func NewComponent(owner framework.SerializableResource) *component {
 	config := framework.NewConfig(gvk)
 	config.CheckedForReadiness = true
 	config.Created = false

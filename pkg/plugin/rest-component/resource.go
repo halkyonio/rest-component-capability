@@ -1,7 +1,6 @@
 package rest_component
 
 import (
-	beta1 "halkyon.io/api/v1beta1"
 	"halkyon.io/operator-framework"
 	"halkyon.io/operator-framework/plugins/capability"
 )
@@ -12,7 +11,7 @@ type Resource struct {
 	capability.SimplePluginResourceStem
 }
 
-func (m Resource) GetDependentResourcesWith(owner beta1.HalkyonResource) []framework.DependentResource {
+func (m Resource) GetDependentResourcesWith(owner framework.SerializableResource) []framework.DependentResource {
 	c := NewComponent(owner)
 	config := framework.NewDefaultSecretConfig()
 	config.CheckedForReadiness = true

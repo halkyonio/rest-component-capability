@@ -13,6 +13,8 @@ import (
 var _ framework.DependentResource = &component{}
 var gvk = v1beta12.SchemeGroupVersion.WithKind(v1beta12.Kind)
 
+const EndpointUrlKey = "ENDPOINT_URL"
+
 type component struct {
 	*framework.BaseDependentResource
 }
@@ -63,7 +65,7 @@ func (m *component) GetCondition(underlying runtime.Object, err error) *v1beta1.
 func (m *component) GetDataMap() map[string][]byte {
 	c := ownerAsCapability(m)
 	paramsMap := util.ParametersAsMap(c.Spec.Parameters)
-	key := "ENDPOINT_BACKEND"
+	key := EndpointUrlKey
 	if override, ok := paramsMap["halkyon.endpointKey"]; ok {
 		key = override
 	}

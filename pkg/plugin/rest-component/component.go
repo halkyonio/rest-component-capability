@@ -45,10 +45,6 @@ func (m *component) Name() string {
 	return m.params["component"]
 }
 
-func (m *component) NameFrom(underlying runtime.Object) string {
-	return framework.DefaultNameFrom(m, underlying)
-}
-
 func (m *component) Fetch() (runtime.Object, error) {
 	panic("should never be called")
 }

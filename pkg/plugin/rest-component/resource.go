@@ -21,7 +21,9 @@ func (m Resource) CheckValidity(owner framework.SerializableResource) []string {
 	missing = m.checkIfMissing(parameters, PortParam, missing)
 	missing = m.checkIfMissing(parameters, ComponentParam, missing)
 	missing = m.checkIfMissing(parameters, ContextParam, missing)
-	m.Logger.Info("validation", "missing", missing)
+	if len(missing) > 0 {
+		m.Logger.Info("validation", "missing", missing)
+	}
 	return missing
 }
 

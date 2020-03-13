@@ -3,6 +3,7 @@ package rest_component
 import (
 	"fmt"
 	"halkyon.io/api/capability/v1beta1"
+	v1beta12 "halkyon.io/api/component/v1beta1"
 	"halkyon.io/operator-framework"
 	"halkyon.io/operator-framework/plugins/capability"
 	"halkyon.io/operator-framework/util"
@@ -18,8 +19,8 @@ func (m Resource) CheckValidity(owner framework.SerializableResource) []string {
 	c := owner.(*v1beta1.Capability)
 	parameters := util.ParametersAsMap(c.Spec.Parameters)
 	missing := make([]string, 0, 3)
-	missing = m.checkIfMissing(parameters, PortParam, missing)
-	missing = m.checkIfMissing(parameters, ComponentParam, missing)
+	missing = m.checkIfMissing(parameters, v1beta12.TargetPortDefaultParameterName, missing)
+	missing = m.checkIfMissing(parameters, v1beta12.TargetComponentDefaultParameterName, missing)
 	missing = m.checkIfMissing(parameters, ContextParam, missing)
 	if len(missing) > 0 {
 		m.Logger.Info("validation", "missing", missing)

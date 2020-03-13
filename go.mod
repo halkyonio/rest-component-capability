@@ -10,8 +10,8 @@ require (
 	github.com/imdario/mergo v0.3.8 // indirect
 	github.com/prometheus/client_golang v1.4.1 // indirect
 	go.uber.org/zap v1.13.0 // indirect
-	halkyon.io/api v1.0.0-rc.5.0.20200225094354-ffc4920a82c2
-	halkyon.io/operator-framework v1.0.0-beta.6
+	halkyon.io/api v1.0.0-rc.5.0.20200312223923-071629b2929c
+	halkyon.io/operator-framework v1.0.0-beta.6.0.20200311123519-8276f263c10b
 	k8s.io/apiextensions-apiserver v0.17.3 // indirect
 	k8s.io/apimachinery v0.17.3
 	sigs.k8s.io/testing_frameworks v0.1.2 // indirect

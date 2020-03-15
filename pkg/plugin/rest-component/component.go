@@ -16,8 +16,8 @@ var gvk = v1beta12.SchemeGroupVersion.WithKind(v1beta12.Kind)
 const (
 	EndpointUrlKey        = "ENDPOINT_URL"
 	EndpointOverrideParam = "halkyon.endpointKey"
-	ComponentParam        = "component"
-	PortParam             = "port"
+	ComponentParam        = v1beta12.TargetComponentDefaultParameterName
+	PortParam             = v1beta12.TargetPortDefaultParameterName
 	ContextParam          = "context"
 )
 
@@ -42,7 +42,7 @@ func ownerAsCapability(res framework.DependentResource) *capability.Capability {
 }
 
 func (m *component) Name() string {
-	return m.params["component"]
+	return m.params[ComponentParam]
 }
 
 func (m *component) Fetch() (runtime.Object, error) {
